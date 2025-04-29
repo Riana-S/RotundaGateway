@@ -14,6 +14,9 @@
 		96E42FDA2DC06AED0094D061 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96E42FD92DC06AED0094D061 /* Assets.xcassets */; };
 		96E42FDD2DC06AED0094D061 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96E42FDC2DC06AED0094D061 /* Preview Assets.xcassets */; };
 		96E42FE82DC06AED0094D061 /* RotundaGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E42FE72DC06AED0094D061 /* RotundaGatewayTests.swift */; };
+		96E42FF42DC0A1CF0094D061 /* misty_pines_4k.hdr in Resources */ = {isa = PBXBuildFile; fileRef = 96E42FF12DC0A1CE0094D061 /* misty_pines_4k.hdr */; };
+		96E42FF52DC0A1CF0094D061 /* shanghai_bund_4k.hdr in Resources */ = {isa = PBXBuildFile; fileRef = 96E42FF22DC0A1CE0094D061 /* shanghai_bund_4k.hdr */; };
+		96E42FF62DC0A1CF0094D061 /* klippad_sunrise_2_4k.hdr in Resources */ = {isa = PBXBuildFile; fileRef = 96E42FF32DC0A1CF0094D061 /* klippad_sunrise_2_4k.hdr */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +40,9 @@
 		96E42FDE2DC06AED0094D061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96E42FE32DC06AED0094D061 /* RotundaGatewayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RotundaGatewayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E42FE72DC06AED0094D061 /* RotundaGatewayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotundaGatewayTests.swift; sourceTree = "<group>"; };
+		96E42FF12DC0A1CE0094D061 /* misty_pines_4k.hdr */ = {isa = PBXFileReference; lastKnownFileType = file; path = misty_pines_4k.hdr; sourceTree = "<group>"; };
+		96E42FF22DC0A1CE0094D061 /* shanghai_bund_4k.hdr */ = {isa = PBXFileReference; lastKnownFileType = file; path = shanghai_bund_4k.hdr; sourceTree = "<group>"; };
+		96E42FF32DC0A1CF0094D061 /* klippad_sunrise_2_4k.hdr */ = {isa = PBXFileReference; lastKnownFileType = file; path = klippad_sunrise_2_4k.hdr; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,9 @@
 				96E42FD32DC06AEB0094D061 /* RotundaGatewayApp.swift */,
 				96E42FD52DC06AEB0094D061 /* ContentView.swift */,
 				96E42FD72DC06AEB0094D061 /* ImmersiveView.swift */,
+				96E42FF32DC0A1CF0094D061 /* klippad_sunrise_2_4k.hdr */,
+				96E42FF12DC0A1CE0094D061 /* misty_pines_4k.hdr */,
+				96E42FF22DC0A1CE0094D061 /* shanghai_bund_4k.hdr */,
 				96E42FD92DC06AED0094D061 /* Assets.xcassets */,
 				96E42FDE2DC06AED0094D061 /* Info.plist */,
 				96E42FDB2DC06AED0094D061 /* Preview Content */,
@@ -199,7 +208,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				96E42FDD2DC06AED0094D061 /* Preview Assets.xcassets in Resources */,
+				96E42FF52DC0A1CF0094D061 /* shanghai_bund_4k.hdr in Resources */,
 				96E42FDA2DC06AED0094D061 /* Assets.xcassets in Resources */,
+				96E42FF62DC0A1CF0094D061 /* klippad_sunrise_2_4k.hdr in Resources */,
+				96E42FF42DC0A1CF0094D061 /* misty_pines_4k.hdr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
