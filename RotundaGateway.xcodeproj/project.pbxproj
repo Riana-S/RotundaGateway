@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9680EA9C2DC2A7E8003CD568 /* mirrored_hall_4k.hdr in Resources */ = {isa = PBXBuildFile; fileRef = 9680EA9B2DC2A7E8003CD568 /* mirrored_hall_4k.hdr */; };
 		96E42FD22DC06AEB0094D061 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 96E42FD12DC06AEB0094D061 /* RealityKitContent */; };
 		96E42FD42DC06AEB0094D061 /* RotundaGatewayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E42FD32DC06AEB0094D061 /* RotundaGatewayApp.swift */; };
 		96E42FD62DC06AEB0094D061 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E42FD52DC06AEB0094D061 /* ContentView.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9680EA9B2DC2A7E8003CD568 /* mirrored_hall_4k.hdr */ = {isa = PBXFileReference; lastKnownFileType = file; path = mirrored_hall_4k.hdr; sourceTree = "<group>"; };
 		96E42FCC2DC06AEB0094D061 /* RotundaGateway.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RotundaGateway.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E42FD02DC06AEB0094D061 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		96E42FD32DC06AEB0094D061 /* RotundaGatewayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotundaGatewayApp.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				96E42FD32DC06AEB0094D061 /* RotundaGatewayApp.swift */,
 				96E42FD52DC06AEB0094D061 /* ContentView.swift */,
 				96E42FD72DC06AEB0094D061 /* ImmersiveView.swift */,
+				9680EA9B2DC2A7E8003CD568 /* mirrored_hall_4k.hdr */,
 				96E42FF32DC0A1CF0094D061 /* klippad_sunrise_2_4k.hdr */,
 				96E42FF12DC0A1CE0094D061 /* misty_pines_4k.hdr */,
 				96E42FF22DC0A1CE0094D061 /* shanghai_bund_4k.hdr */,
@@ -211,6 +214,7 @@
 				96E42FF52DC0A1CF0094D061 /* shanghai_bund_4k.hdr in Resources */,
 				96E42FDA2DC06AED0094D061 /* Assets.xcassets in Resources */,
 				96E42FF62DC0A1CF0094D061 /* klippad_sunrise_2_4k.hdr in Resources */,
+				9680EA9C2DC2A7E8003CD568 /* mirrored_hall_4k.hdr in Resources */,
 				96E42FF42DC0A1CF0094D061 /* misty_pines_4k.hdr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

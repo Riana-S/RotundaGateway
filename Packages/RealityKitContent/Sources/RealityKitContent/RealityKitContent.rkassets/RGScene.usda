@@ -8,14 +8,16 @@
     upAxis = "Y"
 )
 
+reorder rootPrims = ["Root", "AnchorPortal2", "AnchorPortal4"]
+
 def Xform "Root"
 {
-    reorder nameChildren = ["Window", "Maple_Plywood", "R_Frame", "L_Frame", "Bottom_Frame", "Top_Frame", "AnchorPortal1", "AnchorPortal2", "AnchorPortal3", "AnchorPortal4"]
+    reorder nameChildren = ["Window", "Maple_Plywood", "Scratched_Metallic_Paint", "Door_Handle_1"]
     def Xform "Window" (
         active = true
     )
     {
-        reorder nameChildren = ["R_Frame", "L_Frame", "Bottom_Frame", "Top_Frame", "AnchorPortal1", "AnchorPortal2", "AnchorPortal3", "AnchorPortal4"]
+        reorder nameChildren = ["R_Frame", "L_Frame", "Bottom_Frame", "Top_Frame", "AnchorPortal1", "R_Door", "L_Door", "R_Door_1", "L_Door_1", "Door_Handle", "Door_Handle_1"]
         def Cube "R_Frame" (
             active = true
             prepend apiSchemas = ["MaterialBindingAPI"]
@@ -144,34 +146,384 @@ def Xform "Root"
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
 
-        def Xform "AnchorPortal2" (
+        def Cube "R_Door" (
             active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
         )
         {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
             quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (1, 1, 1)
-            float3 xformOp:translate = (0, 0, -0.5)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (0.024, 0, 0.5)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window/R_Door/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
         }
 
-        def Xform "AnchorPortal3" (
+        def Cube "L_Door" (
             active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
         )
         {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
             quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (1, 1, 1)
-            float3 xformOp:translate = (-0.5, 0, 0)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (-0.024, 0, 0.5)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window/L_Door/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
         }
 
-        def Xform "AnchorPortal4" (
+        def Cube "R_Door_1" (
             active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
         )
         {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
             quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (1, 1, 1)
-            float3 xformOp:translate = (0.5, 0, 0)
+            float3 xformOp:scale = (0.03, 0.05, 0.048)
+            float3 xformOp:translate = (0.024, 0, 0.51)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window/R_Door_1/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "L_Door_1" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.03, 0.05, 0.048)
+            float3 xformOp:translate = (-0.024, 0, 0.51)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window/L_Door_1/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def "Door_Handle" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 1.5707963, 0)
+            }
+            references = @XylophoneDrumsticks.usdz@
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "strongerThanDescendants"
+            )
+            quatf xformOp:orient = (0.70710677, 0, 0.70710677, 0)
+            float3 xformOp:scale = (0.6999999, 0.6999999, 0.074999996)
+            float3 xformOp:translate = (0.029278489, 3.7252903e-9, 0.5506107)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "geom"
+            {
+                over "realistic"
+                {
+                    over "materials"
+                    {
+                        over "xylophone_drumsticks_realistic_01_mat_sg"
+                        {
+                            string inputs:file6:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (447, 704.5)
+                                        float2 sizeInSubgraph = (153, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file7:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (659, 704.5)
+                                        float2 sizeInSubgraph = (152, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file8:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (873, 704.5)
+                                        float2 sizeInSubgraph = (154, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file15:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (1092, 704.5)
+                                        float2 sizeInSubgraph = (159, 53)
+                                    }
+                                }
+                            )
+                            token outputs:realitykit:vertex
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1417, 279)
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (250, 99)
+
+                            over "xylophone_drumsticks_realistic_mat_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (1107, 279)
+                                float2 ui:nodegraph:node:size = (250, 199)
+                            }
+
+                            over "file15_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (304.5, 99.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "Lookup_st"
+                            {
+                                float2 ui:nodegraph:node:pos = (72.5, 311.5)
+                                float2 ui:nodegraph:node:size = (145, 127)
+                            }
+
+                            over "file15_mtlx_scale"
+                            {
+                                float2 ui:nodegraph:node:pos = (563.5, 99.5)
+                                float2 ui:nodegraph:node:size = (61, 36)
+                            }
+
+                            over "file15_mtlx_offset"
+                            {
+                                float2 ui:nodegraph:node:pos = (822.5, 81)
+                                float2 ui:nodegraph:node:size = (63, 37)
+                            }
+
+                            over "file6_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (563.5, 428.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file7_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (822.5, 259)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file8_mtlx"
+                            {
+                                float2 ui:nodegraph:node:pos = (304.5, 518.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        def "Door_Handle_1" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 3.1415927, 0)
+            }
+            references = @XylophoneDrumsticks.usdz@
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "strongerThanDescendants"
+            )
+            quatf xformOp:orient = (-4.371139e-8, 0, 1, 0)
+            float3 xformOp:scale = (0.7, 0.7, 0.12)
+            float3 xformOp:translate = (0.02, 0, 0.535)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "geom"
+            {
+                over "realistic"
+                {
+                    over "materials"
+                    {
+                        over "xylophone_drumsticks_realistic_01_mat_sg"
+                        {
+                            string inputs:file6:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (447, 704.5)
+                                        float2 sizeInSubgraph = (153, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file7:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (659, 704.5)
+                                        float2 sizeInSubgraph = (152, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file8:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (873, 704.5)
+                                        float2 sizeInSubgraph = (154, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file15:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (1092, 704.5)
+                                        float2 sizeInSubgraph = (159, 53)
+                                    }
+                                }
+                            )
+                            token outputs:mtlx:surface.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat_mtlx.outputs:out>
+                            token outputs:realitykit:vertex
+                            token outputs:surface.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat.outputs:surface>
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1417, 279)
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (250, 99)
+
+                            over "xylophone_drumsticks_realistic_mat_mtlx"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6_mtlx.outputs:out>
+                                float3 inputs:normal.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_offset.outputs:out>
+                                float inputs:occlusion.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7_mtlx.outputs:out>
+                                float inputs:roughness.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (1107, 279)
+                                float2 ui:nodegraph:node:size = (250, 199)
+                            }
+
+                            over "file15_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 99.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "Lookup_st"
+                            {
+                                float2 ui:nodegraph:node:pos = (72.5, 311.5)
+                                float2 ui:nodegraph:node:size = (145, 127)
+                            }
+
+                            over "file15_mtlx_scale"
+                            {
+                                float3 inputs:in1.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 99.5)
+                                float2 ui:nodegraph:node:size = (61, 36)
+                            }
+
+                            over "file15_mtlx_offset"
+                            {
+                                float3 inputs:in1.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_scale.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 81)
+                                float2 ui:nodegraph:node:size = (63, 37)
+                            }
+
+                            over "file6_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 428.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file7_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 259)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file8_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 518.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "xylophone_drumsticks_realistic_mat"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6.outputs:rgb>
+                                normal3f inputs:normal.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15.outputs:rgb>
+                                float inputs:occlusion.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7.outputs:r>
+                                float inputs:roughness.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8.outputs:r>
+                            }
+
+                            over "file6"
+                            {
+                                float2 inputs:st.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture6.outputs:result>
+                            }
+
+                            over "file7"
+                            {
+                                float2 inputs:st.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture7.outputs:result>
+                            }
+
+                            over "file8"
+                            {
+                                float2 inputs:st.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture8.outputs:result>
+                            }
+
+                            over "file15"
+                            {
+                                float2 inputs:st.connect = </Root/Window/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture15.outputs:result>
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -265,5 +617,1150 @@ def Xform "Root"
             float2 ui:nodegraph:node:size = (159, 235)
         }
     }
+
+    def "Scratched_Metallic_Paint" (
+        active = true
+        references = @ScratchedMetallicPaint.usdz@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Xform "Window_1" (
+        active = true
+        customData = {
+            float3 rotationEulerHint = (0, 0, 0)
+        }
+    )
+    {
+        reorder nameChildren = ["R_Frame", "L_Frame", "Bottom_Frame", "Top_Frame", "R_Door", "L_Door", "R_Door_1", "L_Door_1", "Door_Handle", "Door_Handle_1", "AnchorPortal2"]
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (1.5, 0, 0.75)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cube "R_Frame" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (0.5, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_1/R_Frame/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "L_Frame" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (-0.5, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_1/L_Frame/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "Bottom_Frame" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 0, 1.5707963)
+            }
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (0.70710677, 0, 0, 0.7071067)
+            float3 xformOp:scale = (0.047999997, 0.99999994, 0.047999997)
+            float3 xformOp:translate = (0, -0.475, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_1/Bottom_Frame/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "Top_Frame" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 0, 1.5707963)
+            }
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (0.70710677, 0, 0, 0.70710677)
+            float3 xformOp:scale = (0.047999986, 0.99999976, 0.047999986)
+            float3 xformOp:translate = (0, 0.475, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_1/Top_Frame/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "R_Door" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (0.024, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_1/R_Door/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "L_Door" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (-0.024, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_1/L_Door/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "R_Door_1" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.03, 0.05, 0.048)
+            float3 xformOp:translate = (0.024, 0, 0.51)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_1/R_Door_1/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "L_Door_1" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.03, 0.05, 0.048)
+            float3 xformOp:translate = (-0.024, 0, 0.51)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_1/L_Door_1/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def "Door_Handle" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 1.5707963, 0)
+            }
+            references = @XylophoneDrumsticks.usdz@
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "strongerThanDescendants"
+            )
+            quatf xformOp:orient = (0.70710677, 0, 0.70710677, 0)
+            float3 xformOp:scale = (0.6999999, 0.6999999, 0.074999996)
+            float3 xformOp:translate = (0.029278489, 3.7252903e-9, 0.5506107)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "geom"
+            {
+                over "realistic"
+                {
+                    over "materials"
+                    {
+                        over "xylophone_drumsticks_realistic_01_mat_sg"
+                        {
+                            string inputs:file6:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (447, 704.5)
+                                        float2 sizeInSubgraph = (153, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file7:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (659, 704.5)
+                                        float2 sizeInSubgraph = (152, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file8:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (873, 704.5)
+                                        float2 sizeInSubgraph = (154, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file15:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (1092, 704.5)
+                                        float2 sizeInSubgraph = (159, 53)
+                                    }
+                                }
+                            )
+                            token outputs:mtlx:surface.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat_mtlx.outputs:out>
+                            token outputs:realitykit:vertex
+                            token outputs:surface.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat.outputs:surface>
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1417, 279)
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (250, 99)
+
+                            over "xylophone_drumsticks_realistic_mat_mtlx"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6_mtlx.outputs:out>
+                                float3 inputs:normal.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_offset.outputs:out>
+                                float inputs:occlusion.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7_mtlx.outputs:out>
+                                float inputs:roughness.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (1107, 279)
+                                float2 ui:nodegraph:node:size = (250, 199)
+                            }
+
+                            over "file15_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 99.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "Lookup_st"
+                            {
+                                float2 ui:nodegraph:node:pos = (72.5, 311.5)
+                                float2 ui:nodegraph:node:size = (145, 127)
+                            }
+
+                            over "file15_mtlx_scale"
+                            {
+                                float3 inputs:in1.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 99.5)
+                                float2 ui:nodegraph:node:size = (61, 36)
+                            }
+
+                            over "file15_mtlx_offset"
+                            {
+                                float3 inputs:in1.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_scale.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 81)
+                                float2 ui:nodegraph:node:size = (63, 37)
+                            }
+
+                            over "file6_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 428.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file7_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 259)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file8_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 518.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "xylophone_drumsticks_realistic_mat"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6.outputs:rgb>
+                                normal3f inputs:normal.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15.outputs:rgb>
+                                float inputs:occlusion.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7.outputs:r>
+                                float inputs:roughness.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8.outputs:r>
+                            }
+
+                            over "file6"
+                            {
+                                float2 inputs:st.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture6.outputs:result>
+                            }
+
+                            over "file7"
+                            {
+                                float2 inputs:st.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture7.outputs:result>
+                            }
+
+                            over "file8"
+                            {
+                                float2 inputs:st.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture8.outputs:result>
+                            }
+
+                            over "file15"
+                            {
+                                float2 inputs:st.connect = </Root/Window_1/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture15.outputs:result>
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        def "Door_Handle_1" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 3.1415927, 0)
+            }
+            references = @XylophoneDrumsticks.usdz@
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "strongerThanDescendants"
+            )
+            quatf xformOp:orient = (-4.371139e-8, 0, 1, 0)
+            float3 xformOp:scale = (0.7, 0.7, 0.12)
+            float3 xformOp:translate = (0.02, 0, 0.535)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "geom"
+            {
+                over "realistic"
+                {
+                    over "materials"
+                    {
+                        over "xylophone_drumsticks_realistic_01_mat_sg"
+                        {
+                            string inputs:file6:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (447, 704.5)
+                                        float2 sizeInSubgraph = (153, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file7:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (659, 704.5)
+                                        float2 sizeInSubgraph = (152, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file8:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (873, 704.5)
+                                        float2 sizeInSubgraph = (154, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file15:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (1092, 704.5)
+                                        float2 sizeInSubgraph = (159, 53)
+                                    }
+                                }
+                            )
+                            token outputs:mtlx:surface.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat_mtlx.outputs:out>
+                            token outputs:realitykit:vertex
+                            token outputs:surface.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat.outputs:surface>
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1417, 279)
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (250, 99)
+
+                            over "xylophone_drumsticks_realistic_mat_mtlx"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6_mtlx.outputs:out>
+                                float3 inputs:normal.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_offset.outputs:out>
+                                float inputs:occlusion.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7_mtlx.outputs:out>
+                                float inputs:roughness.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (1107, 279)
+                                float2 ui:nodegraph:node:size = (250, 199)
+                            }
+
+                            over "file15_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 99.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "Lookup_st"
+                            {
+                                float2 ui:nodegraph:node:pos = (72.5, 311.5)
+                                float2 ui:nodegraph:node:size = (145, 127)
+                            }
+
+                            over "file15_mtlx_scale"
+                            {
+                                float3 inputs:in1.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 99.5)
+                                float2 ui:nodegraph:node:size = (61, 36)
+                            }
+
+                            over "file15_mtlx_offset"
+                            {
+                                float3 inputs:in1.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_scale.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 81)
+                                float2 ui:nodegraph:node:size = (63, 37)
+                            }
+
+                            over "file6_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 428.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file7_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 259)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file8_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 518.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "xylophone_drumsticks_realistic_mat"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6.outputs:rgb>
+                                normal3f inputs:normal.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15.outputs:rgb>
+                                float inputs:occlusion.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7.outputs:r>
+                                float inputs:roughness.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8.outputs:r>
+                            }
+
+                            over "file6"
+                            {
+                                float2 inputs:st.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture6.outputs:result>
+                            }
+
+                            over "file7"
+                            {
+                                float2 inputs:st.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture7.outputs:result>
+                            }
+
+                            over "file8"
+                            {
+                                float2 inputs:st.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture8.outputs:result>
+                            }
+
+                            over "file15"
+                            {
+                                float2 inputs:st.connect = </Root/Window_1/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture15.outputs:result>
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        def Xform "AnchorPortal2" (
+            active = true
+        )
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (-1.1920929e-7, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "Window_2" (
+        active = true
+        customData = {
+            float3 rotationEulerHint = (0, 0, 0)
+        }
+    )
+    {
+        reorder nameChildren = ["R_Frame", "L_Frame", "Bottom_Frame", "Top_Frame", "AnchorPortal3", "R_Door", "L_Door", "R_Door_1", "L_Door_1", "Door_Handle", "Door_Handle_1"]
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-1.5, 0, 0.75)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cube "R_Frame" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (0.5, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_2/R_Frame/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "L_Frame" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (-0.5, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_2/L_Frame/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "Bottom_Frame" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 0, 1.5707963)
+            }
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (0.70710677, 0, 0, 0.7071067)
+            float3 xformOp:scale = (0.047999997, 0.99999994, 0.047999997)
+            float3 xformOp:translate = (0, -0.475, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_2/Bottom_Frame/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "Top_Frame" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 0, 1.5707963)
+            }
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (0.70710677, 0, 0, 0.70710677)
+            float3 xformOp:scale = (0.047999986, 0.99999976, 0.047999986)
+            float3 xformOp:translate = (0, 0.475, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_2/Top_Frame/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "R_Door" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (0.024, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_2/R_Door/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "L_Door" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Maple_Plywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.048, 1, 0.048)
+            float3 xformOp:translate = (-0.024, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_2/L_Door/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "R_Door_1" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.03, 0.05, 0.048)
+            float3 xformOp:translate = (0.024, 0, 0.51)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_2/R_Door_1/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Cube "L_Door_1" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.03, 0.05, 0.048)
+            float3 xformOp:translate = (-0.024, 0, 0.51)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Material "DefaultMaterial"
+            {
+                token outputs:surface.connect = </Root/Window_2/L_Door_1/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+                def Shader "DefaultSurfaceShader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (1, 1, 1)
+                    float inputs:roughness = 0.75
+                    token outputs:surface
+                }
+            }
+        }
+
+        def "Door_Handle" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 1.5707963, 0)
+            }
+            references = @XylophoneDrumsticks.usdz@
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "strongerThanDescendants"
+            )
+            quatf xformOp:orient = (0.70710677, 0, 0.70710677, 0)
+            float3 xformOp:scale = (0.6999999, 0.6999999, 0.074999996)
+            float3 xformOp:translate = (0.029278489, 3.7252903e-9, 0.5506107)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "geom"
+            {
+                over "realistic"
+                {
+                    over "materials"
+                    {
+                        over "xylophone_drumsticks_realistic_01_mat_sg"
+                        {
+                            string inputs:file6:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (447, 704.5)
+                                        float2 sizeInSubgraph = (153, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file7:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (659, 704.5)
+                                        float2 sizeInSubgraph = (152, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file8:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (873, 704.5)
+                                        float2 sizeInSubgraph = (154, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file15:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (1092, 704.5)
+                                        float2 sizeInSubgraph = (159, 53)
+                                    }
+                                }
+                            )
+                            token outputs:mtlx:surface.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat_mtlx.outputs:out>
+                            token outputs:realitykit:vertex
+                            token outputs:surface.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat.outputs:surface>
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1417, 279)
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (250, 99)
+
+                            over "xylophone_drumsticks_realistic_mat_mtlx"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6_mtlx.outputs:out>
+                                float3 inputs:normal.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_offset.outputs:out>
+                                float inputs:occlusion.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7_mtlx.outputs:out>
+                                float inputs:roughness.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (1107, 279)
+                                float2 ui:nodegraph:node:size = (250, 199)
+                            }
+
+                            over "file15_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 99.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "Lookup_st"
+                            {
+                                float2 ui:nodegraph:node:pos = (72.5, 311.5)
+                                float2 ui:nodegraph:node:size = (145, 127)
+                            }
+
+                            over "file15_mtlx_scale"
+                            {
+                                float3 inputs:in1.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 99.5)
+                                float2 ui:nodegraph:node:size = (61, 36)
+                            }
+
+                            over "file15_mtlx_offset"
+                            {
+                                float3 inputs:in1.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_scale.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 81)
+                                float2 ui:nodegraph:node:size = (63, 37)
+                            }
+
+                            over "file6_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 428.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file7_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 259)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file8_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 518.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "xylophone_drumsticks_realistic_mat"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6.outputs:rgb>
+                                normal3f inputs:normal.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15.outputs:rgb>
+                                float inputs:occlusion.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7.outputs:r>
+                                float inputs:roughness.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8.outputs:r>
+                            }
+
+                            over "file6"
+                            {
+                                float2 inputs:st.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture6.outputs:result>
+                            }
+
+                            over "file7"
+                            {
+                                float2 inputs:st.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture7.outputs:result>
+                            }
+
+                            over "file8"
+                            {
+                                float2 inputs:st.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture8.outputs:result>
+                            }
+
+                            over "file15"
+                            {
+                                float2 inputs:st.connect = </Root/Window_2/Door_Handle/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture15.outputs:result>
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        def "Door_Handle_1" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 3.1415927, 0)
+            }
+            references = @XylophoneDrumsticks.usdz@
+        )
+        {
+            rel material:binding = </Root/Scratched_Metallic_Paint> (
+                bindMaterialAs = "strongerThanDescendants"
+            )
+            quatf xformOp:orient = (-4.371139e-8, 0, 1, 0)
+            float3 xformOp:scale = (0.7, 0.7, 0.12)
+            float3 xformOp:translate = (0.02, 0, 0.535)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "geom"
+            {
+                over "realistic"
+                {
+                    over "materials"
+                    {
+                        over "xylophone_drumsticks_realistic_01_mat_sg"
+                        {
+                            string inputs:file6:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (447, 704.5)
+                                        float2 sizeInSubgraph = (153, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file7:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (659, 704.5)
+                                        float2 sizeInSubgraph = (152, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file8:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (873, 704.5)
+                                        float2 sizeInSubgraph = (154, 53)
+                                    }
+                                }
+                            )
+                            string inputs:file15:varname (
+                                customData = {
+                                    dictionary realitykit = {
+                                        float2 positionInSubgraph = (1092, 704.5)
+                                        float2 sizeInSubgraph = (159, 53)
+                                    }
+                                }
+                            )
+                            token outputs:mtlx:surface.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat_mtlx.outputs:out>
+                            token outputs:realitykit:vertex
+                            token outputs:surface.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/xylophone_drumsticks_realistic_mat.outputs:surface>
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1417, 279)
+                            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (250, 99)
+
+                            over "xylophone_drumsticks_realistic_mat_mtlx"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6_mtlx.outputs:out>
+                                float3 inputs:normal.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_offset.outputs:out>
+                                float inputs:occlusion.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7_mtlx.outputs:out>
+                                float inputs:roughness.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (1107, 279)
+                                float2 ui:nodegraph:node:size = (250, 199)
+                            }
+
+                            over "file15_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 99.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "Lookup_st"
+                            {
+                                float2 ui:nodegraph:node:pos = (72.5, 311.5)
+                                float2 ui:nodegraph:node:size = (145, 127)
+                            }
+
+                            over "file15_mtlx_scale"
+                            {
+                                float3 inputs:in1.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 99.5)
+                                float2 ui:nodegraph:node:size = (61, 36)
+                            }
+
+                            over "file15_mtlx_offset"
+                            {
+                                float3 inputs:in1.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15_mtlx_scale.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 81)
+                                float2 ui:nodegraph:node:size = (63, 37)
+                            }
+
+                            over "file6_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (563.5, 428.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file7_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (822.5, 259)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "file8_mtlx"
+                            {
+                                float2 inputs:texcoord.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/Lookup_st.outputs:out>
+                                float2 ui:nodegraph:node:pos = (304.5, 518.5)
+                                float2 ui:nodegraph:node:size = (149, 199)
+                            }
+
+                            over "xylophone_drumsticks_realistic_mat"
+                            {
+                                color3f inputs:diffuseColor.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file6.outputs:rgb>
+                                normal3f inputs:normal.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file15.outputs:rgb>
+                                float inputs:occlusion.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file7.outputs:r>
+                                float inputs:roughness.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/file8.outputs:r>
+                            }
+
+                            over "file6"
+                            {
+                                float2 inputs:st.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture6.outputs:result>
+                            }
+
+                            over "file7"
+                            {
+                                float2 inputs:st.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture7.outputs:result>
+                            }
+
+                            over "file8"
+                            {
+                                float2 inputs:st.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture8.outputs:result>
+                            }
+
+                            over "file15"
+                            {
+                                float2 inputs:st.connect = </Root/Window_2/Door_Handle_1/geom/realistic/materials/xylophone_drumsticks_realistic_01_mat_sg/place2dTexture15.outputs:result>
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        def Xform "AnchorPortal3" (
+            active = true
+        )
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0, 0, 0.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+}
+
+def Xform "AnchorPortal4" (
+    active = true
+)
+{
+    quatf xformOp:orient = (1, 0, 0, 0)
+    float3 xformOp:scale = (1, 1, 1)
+    float3 xformOp:translate = (-0.5, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 }
 
